@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="full">
-    <ice-header title="Stream Temperature and Brook Trout Occupancy in the North Atlantic" />
+    <ice-header title="Coldwater Refugia in the Northeast" />
     <div class="ice-container">
       <div class="ice-left-sidebar">
         <div class="ice-box" style="text-align:right">
@@ -480,7 +480,7 @@ export default {
     console.log('app:created')
     this.catchments.map = new Map()
 
-    axios.get('ice-sheds.json')
+    axios.get('ice-nps-ner.json')
       .then(response => response.data)
       .then(config => this.$store.dispatch('loadConfig', config))
       .then(config => {

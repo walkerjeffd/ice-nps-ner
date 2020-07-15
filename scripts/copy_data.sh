@@ -13,7 +13,7 @@ echo done
 
 # config file
 echo -n Copying config file to data/...
-cp r/config/ice-sheds.json ../data/
+cp r/config/ice-nps-ner.json ../data/
 echo done
 
 # dataset csv files

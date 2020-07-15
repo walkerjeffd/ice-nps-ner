@@ -1,4 +1,4 @@
-Scripts for Generating ICE-SHEDS Files
+Scripts for Generating ICE-NPS-NER Files
 ======================================
 
 ## Set Up
@@ -67,9 +67,9 @@ cd r
 Rscript generate-config.R
 ```
 
-The output config file (`ice-sheds.json`) will be saved to the `./data` folder at the root of the repository.
+The output config file (`ice-nps-ner.json`) will be saved to the `./data` folder at the root of the repository.
 
-The output file (`ice-sheds.json`) will be saved to the `r/config/` directory.
+The output file (`ice-nps-ner.json`) will be saved to the `r/config/` directory.
 
 ## Dataset CSV Files
 

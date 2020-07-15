@@ -1,5 +1,5 @@
 {
-  "name": "ice-sheds",
+  "name": "ice-nps-ner",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,8 +8,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "data": "http-server -p 8081 --cors ./",
-    "deploy": "npm run build && rsync -av dist/* jeff@ecosheds.org:/conte/www/static/ice/sheds --delete",
-    "deploy:data": "rsync -av data/* jeff@ecosheds.org:/conte/www/static/data/ice-sheds --delete"
+    "deploy": "npm run build && rsync -av dist/* jeff@ecosheds.org:/conte/www/static/ice/nps-ner --delete",
+    "deploy:data": "rsync -av data/* jeff@ecosheds.org:/conte/www/static/data/ice-nps-ner --delete"
   },
   "dependencies": {
     "axios": "^0.18.0",

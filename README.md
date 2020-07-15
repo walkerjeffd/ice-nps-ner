@@ -1,4 +1,4 @@
-# ice-sheds
+# ice-nps-ner
 
 ## Project setup
 ```
