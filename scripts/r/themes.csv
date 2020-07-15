@@ -1,0 +1,10 @@
+default,id,label,dataset_na_value,layer_geometry,layer_type,layer_object,group_by,group_weight,default_variable
+FALSE,huc6,HUC6,,polygon,topojson,huc6,huc6,area_km2,elevation
+TRUE,huc8,HUC8,,polygon,topojson,huc8,huc8,area_km2,elevation
+FALSE,huc10,HUC10,,polygon,topojson,huc10,huc10,area_km2,elevation
+FALSE,huc12-01,HUC12 (Region 01),,polygon,topojson,huc12,huc12,area_km2,elevation
+FALSE,huc12-02,HUC12 (Region 02),,polygon,topojson,huc12,huc12,area_km2,elevation
+FALSE,huc12-03,HUC12 (Region 03),,polygon,topojson,huc12,huc12,area_km2,elevation
+FALSE,huc12-04,HUC12 (Region 04),,polygon,topojson,huc12,huc12,area_km2,elevation
+FALSE,huc12-05,HUC12 (Region 05),,polygon,topojson,huc12,huc12,area_km2,elevation
+FALSE,huc12-06,HUC12 (Region 06),,polygon,topojson,huc12,huc12,area_km2,elevation

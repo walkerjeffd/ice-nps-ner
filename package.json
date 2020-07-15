@@ -1,0 +1,48 @@
+{
+  "name": "ice-sheds",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm-run-all --parallel data serve",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "data": "http-server -p 8081 --cors ./",
+    "deploy": "npm run build && rsync -av dist/* jeff@ecosheds.org:/conte/www/static/ice/sheds --delete",
+    "deploy:data": "rsync -av data/* jeff@ecosheds.org:/conte/www/static/data/ice-sheds --delete"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bluebird": "^3.5.3",
+    "bootstrap": "^3.3.7",
+    "bootstrap-select": "^1.12.4",
+    "crossfilter2": "^1.4.6",
+    "d3": "^5.7.0",
+    "d3-tip": "^0.9.1",
+    "downloadjs": "^1.4.7",
+    "jquery": "^3.3.1",
+    "js-yaml": "^3.12.1",
+    "json2csv": "^4.4.1",
+    "leaflet": "^1.3.4",
+    "pg": "^7.7.1",
+    "pg-promise": "^8.5.4",
+    "shapefile": "^0.6.6",
+    "throttle-debounce": "^2.0.1",
+    "topojson": "^3.0.2",
+    "topojson-client": "^2.1.0",
+    "vue": "^2.5.17",
+    "vuex": "^3.0.1",
+    "webpack-jquery-ui": "^2.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.2.0",
+    "@vue/cli-plugin-eslint": "^3.2.0",
+    "@vue/cli-service": "^3.5.3",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0-0",
+    "npm-run-all": "^4.1.5",
+    "vue-template-compiler": "^2.5.17"
+  }
+}
