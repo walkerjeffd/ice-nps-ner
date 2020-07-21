@@ -11,6 +11,7 @@ npsunits %>%
   write_json(file.path("json", "npsunits.json"))
 
 npsunits %>%
-  tail(2) %>%
+  # tail(2) %>%
   select(id = UNIT_CODE, label = UNIT_NAME) %>%
+  arrange(label) %>%
   st_write("../../data/npsunits/npsunits.geojson", driver = "GeoJSON", layer_options = list('COORDINATE_PRECISION=7', 'ID_FIELD=id'), append = FALSE)

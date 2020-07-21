@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="full">
-    <ice-header title="Coldwater Refugia in the Northeast" />
+    <ice-header title="ICE | Coldwater Refugia in the Northeast" />
     <div class="ice-container">
       <div class="ice-left-sidebar">
         <!-- BUTTONS -->
