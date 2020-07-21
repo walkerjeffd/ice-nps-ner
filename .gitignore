@@ -22,7 +22,6 @@ yarn-error.log*
 
 data/**/*.csv
 data/**/*.json
-data/**/*.geojson
 
 .Rproj.user
 .Rhistory

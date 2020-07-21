@@ -528,7 +528,7 @@ export default {
     console.log('app:created')
     this.catchments.map = new Map()
 
-    axios.get('npsunits/npsunits.geojson')
+    axios.get('npsunits/npsunits.json')
       .then(({ data }) => {
         console.log('npsunits', data)
         this.npsunits = Object.freeze(data)
@@ -631,6 +631,9 @@ export default {
       console.log('app:selectNpsunit', feature)
       // this.selected.npsunitId = feature ? feature.id : null
       this.selected.npsunit = feature
+      if (feature) {
+        this.zoomToFeature(feature)
+      }
     },
     selectVariable (id) {
       console.log('app:selectVariable', id)

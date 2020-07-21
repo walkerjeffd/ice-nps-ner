@@ -80,11 +80,11 @@ export default {
     this.layer = L.geoJson(null, {
       style: (feature) => ({
         stroke: true,
-        color: '#EC6D10',
+        color: '#FF0000',
         weight: 1,
         fill: true,
         opacity: 0.8,
-        fillColor: '#EC6D10',
+        fillColor: '#FF0000',
         fillOpacity: 0.05
       })
     }).addTo(this.map)
@@ -151,7 +151,7 @@ export default {
           console.log(`setStyle(${layer.feature.id})`)
           layer.setStyle({
             color: '#FF0000',
-            weight: 1,
+            weight: 2,
             opacity: 1,
             fillColor: '#FF0000',
             fillOpacity: 0.25
@@ -166,10 +166,10 @@ export default {
             console.log('popup', layer.feature.properties)
             return `<strong>${layer.feature.properties.label}</strong><br>Unit Code: ${layer.feature.id}`
           })
-          .on('dblclick', (ev) => {
-            L.DomEvent.stopPropagation(ev)
-            this.map.fitBounds(ev.layer.getBounds())
-          })
+          // .on('dblclick', (ev) => {
+          //   L.DomEvent.stopPropagation(ev)
+          //   this.map.fitBounds(ev.layer.getBounds())
+          // })
           .on('click', (ev) => {
             // L.DomEvent.stopPropagation(ev)
             // console.log(ev.layer.feature)

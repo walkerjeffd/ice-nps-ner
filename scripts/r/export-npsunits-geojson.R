@@ -14,4 +14,4 @@ npsunits %>%
   # tail(2) %>%
   select(id = UNIT_CODE, label = UNIT_NAME) %>%
   arrange(label) %>%
-  st_write("../../data/npsunits/npsunits.geojson", driver = "GeoJSON", layer_options = list('COORDINATE_PRECISION=7', 'ID_FIELD=id'), append = FALSE)
+  st_write("../../data/npsunits/npsunits.json", driver = "GeoJSON", layer_options = list('COORDINATE_PRECISION=7', 'ID_FIELD=id'), append = FALSE)
