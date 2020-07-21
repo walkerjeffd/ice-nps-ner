@@ -21,6 +21,14 @@ export default {
       type: Array,
       required: false,
       default: () => []
+    },
+    features: {
+      type: Object,
+      required: false
+    },
+    selected: {
+      type: Object,
+      required: false
     }
   },
   data () {
@@ -29,7 +37,8 @@ export default {
       map: null,
       disableClick: false,
       bounds: null,
-      zoomLevel: null
+      zoomLevel: null,
+      layer: null
     }
   },
   mounted () {
@@ -68,6 +77,18 @@ export default {
       if (d.visible) layer.addTo(this.map)
     })
 
+    this.layer = L.geoJson(null, {
+      style: (feature) => ({
+        stroke: true,
+        color: '#EC6D10',
+        weight: 1,
+        fill: true,
+        opacity: 0.8,
+        fillColor: '#EC6D10',
+        fillOpacity: 0.05
+      })
+    }).addTo(this.map)
+
     L.control.transparency({ position: 'topleft' }).addTo(this.map)
 
     L.control.layers(basemaps, overlays, {
@@ -96,17 +117,70 @@ export default {
     this.$on('resize', this.resize)
     evt.$on('map:zoomTo', this.zoomTo)
 
+    this.updateLayer()
+
     this.ready = true
   },
   beforeDestroy () {
     evt.$off('map:zoomTo', this.zoomTo)
+    this.layer.clearLayers()
   },
   computed: {
     svg () {
       return d3.select(this.map.getPanes().overlayPane).select('svg')
     }
   },
+  watch: {
+    features () {
+      this.updateLayer()
+    },
+    selected () {
+      this.styleLayer()
+    }
+  },
   methods: {
+    styleLayer () {
+      if (!this.layer || this.layer.getLayers().length === 0) return
+
+      this.layer.resetStyle()
+
+      if (!this.selected) return
+
+      this.layer.eachLayer(layer => {
+        if (layer.feature.id === this.selected.id) {
+          console.log(`setStyle(${layer.feature.id})`)
+          layer.setStyle({
+            color: '#FF0000',
+            weight: 1,
+            opacity: 1,
+            fillColor: '#FF0000',
+            fillOpacity: 0.25
+          })
+        }
+      })
+    },
+    updateLayer () {
+      if (this.features) {
+        this.layer.addData(this.features)
+          .bindTooltip(function (layer) {
+            console.log('popup', layer.feature.properties)
+            return `<strong>${layer.feature.properties.label}</strong><br>Unit Code: ${layer.feature.id}`
+          })
+          .on('dblclick', (ev) => {
+            L.DomEvent.stopPropagation(ev)
+            this.map.fitBounds(ev.layer.getBounds())
+          })
+          .on('click', (ev) => {
+            // L.DomEvent.stopPropagation(ev)
+            // console.log(ev.layer.feature)
+            if (ev.layer.feature === this.selected) {
+              return this.$emit('select', null)
+            }
+            this.$emit('select', ev.layer.feature)
+          })
+        this.styleLayer()
+      }
+    },
     resize (bounds) {
       if (bounds) this.bounds = bounds
 

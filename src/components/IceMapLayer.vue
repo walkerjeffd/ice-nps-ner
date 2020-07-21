@@ -44,6 +44,7 @@ export default {
   mounted () {
     console.log(`map-layer(${this.id}):mounted`)
     evt.$on('map:zoom', this.resize)
+    evt.$on('map:zoomTo', this.resize)
     evt.$on('map:render', this.renderFill)
 
     this.g = this.$parent.svg.select('g.leaflet-zoom-hide')
@@ -134,6 +135,7 @@ export default {
 
       paths.enter()
         .append('path')
+        .attr('class', 'ice')
         .style('cursor', 'pointer')
         .style('pointer-events', 'visible')
         .on('click', function (d) {
@@ -191,7 +193,7 @@ export default {
 </script>
 
 <style>
-path {
+path.ice {
   fill: rgb(200,200,200);
   stroke: rgb(0, 0, 0);
   stroke-width: 0.5px;

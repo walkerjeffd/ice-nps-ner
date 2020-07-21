@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="ice-info-box text-right">
-      <div class="ice-info-box-title">
+      <div class="ice-info-box-title text-left">
         <strong>Selected {{ theme.label }}:</strong> {{ selected.properties.name }} ({{ selected.id }})
       </div>
 
@@ -107,10 +107,8 @@ export default {
 
 <style>
 .ice-info-box {
-  position: absolute;
-  right: 490px;
-  top: 70px;
   padding: 5px 5px;
+  margin: 10px 0;
   background: #fff;
   font-size: 12px;
   border-radius: 5px;

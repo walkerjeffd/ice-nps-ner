@@ -2,7 +2,7 @@
   <div>
     <div class="ice-info-box text-right">
       <div class="ice-info-box-title text-left">
-        <strong>Selected Catchment:</strong> {{ selected.id }}
+        <strong>Selected Park:</strong> {{ selected.properties.label }} ({{ selected.id }})
       </div>
 
       <div class="ice-info-box-body">
@@ -12,14 +12,19 @@
         <button class="btn btn-default btn-xs" @click="zoomTo">
           <i class="fa fa-search-plus"></i> Zoom To
         </button>
+        <!-- <button class="btn btn-default btn-xs" @click="showCatchments">
+          <i class="fa fa-plus-circle"></i> Catchments
+        </button> -->
         <button class="btn btn-default btn-xs" @click="unselect">
           <i class="fa fa-times-circle"></i> Unselect
         </button>
       </div>
     </div>
     <ice-modal :show="showData" @close="showData = false">
-      <span slot="title">Selected Catchment ({{ selected.id }})</span>
+      <span slot="title"><strong>Park Unit: {{ selected.properties.label }} ({{ selected.id }})</strong></span>
       <div slot="body">
+        <!-- <p>This table lists the area-weighted mean value of all catchments within the selected HUC. These values are <em>not</em> affected by current filters.</p> -->
+        <p>This table will list the values for the selected park. Variables TBD...</p>
         <table class="table table-condensed table-striped" v-if="dataRows.length > 0">
           <thead>
             <th>Variable</th>
@@ -39,9 +44,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import * as d3 from 'd3'
+// import * as d3 from 'd3'
 
-import { xf } from '@/libs/IceCrossfilter'
+// import { xf } from '@/libs/IceCrossfilter'
 import IceModal from '@/components/IceModal'
 
 export default {
@@ -60,20 +65,33 @@ export default {
     showData () {
       let rows = []
       if (this.showData) {
-        const datum = xf.subset.all().find(d => d.id === this.selected.id)
-        rows = this.variables
-          .filter(d => d.map || d.filter)
-          .map(d => {
-            const value = datum[d.id]
-            const formatter = d3.format(d.formats.value)
-            return {
-              id: d.id,
-              label: d.label,
-              format: d.formats.value,
-              value,
-              formattedValue: value === null ? 'N/A' : formatter(value)
-            }
-          })
+        // const data = xf.subset.all()
+        // rows = this.variables
+        //   .filter(d => d.map || d.filter)
+        //   .map(d => {
+        //     const values = data.map(v => ({
+        //       weight: v[this.theme.group.weight],
+        //       value: v[d.id],
+        //       weightedValue: v[this.theme.group.weight] * v[d.id]
+        //     })).filter(v => v.value !== null)
+
+        //     const value = d3.sum(values.map(v => v.weightedValue)) / d3.sum(values.map(v => v.weight))
+        //     const formatter = d3.format(d.formats.value)
+        //     return {
+        //       id: d.id,
+        //       label: d.label,
+        //       n: values.length,
+        //       format: d.formats.value,
+        //       value,
+        //       formattedValue: formatter(value)
+        //     }
+        //   })
+        rows = [1, 2, 3, 4].map(i => ({
+          id: i,
+          label: `Variable ${i}`,
+          value: i,
+          formattedValue: i.toFixed(1)
+        }))
       }
 
       this.dataRows = rows
@@ -85,12 +103,16 @@ export default {
     },
     zoomTo () {
       this.$emit('zoomTo', this.selected)
+    },
+    showCatchments () {
+      // console.log('info:showCatchments')
+      this.$emit('showCatchments', this.selected)
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
 .ice-info-box {
   padding: 5px 5px;
   margin: 10px 0;

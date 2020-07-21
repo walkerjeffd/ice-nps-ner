@@ -77,7 +77,13 @@ export default {
   },
   watch: {
     value (value) {
-      $(this.$el).selectpicker('val', value).selectpicker('refresh')
+      console.log(`ice-select(${this.id}):watch(value) ${value}`)
+      if (value) {
+        $(this.$el).selectpicker('val', value).selectpicker('refresh')
+      } else {
+        $(this.$el).val('default')
+        $(this.$el).selectpicker('refresh')
+      }
     }
   },
   computed: {
@@ -109,9 +115,28 @@ export default {
         $el.selectpicker('val', this.value).selectpicker('refresh')
       })
       .on('changed.bs.select', (e, clickedIndex, isSelected, previousValue) => {
+        const currentValue = $el.selectpicker('val')
+        console.log(`changed.bs.select(${this.id})`, clickedIndex, isSelected, previousValue, currentValue)
         if (isFinite(clickedIndex) && clickedIndex !== null) {
-          console.log(`changed.bs.select(${this.id})`, e, clickedIndex, isSelected, previousValue, $el.selectpicker('val'))
-          this.$emit('input', $el.selectpicker('val'))
+          return this.$emit('input', currentValue)
+        }
+        if (this.multiple) {
+          if (previousValue.length !== currentValue.length) {
+            return this.$emit('input', currentValue)
+          }
+          let changed = false
+          currentValue.forEach(v => {
+            if (!previousValue.includes(v)) {
+              changed = true
+            }
+          })
+          if (changed) {
+            return this.$emit('input', currentValue)
+          }
+        } else {
+          if (previousValue !== currentValue) {
+            return this.$emit('input', currentValue)
+          }
         }
       })
   },

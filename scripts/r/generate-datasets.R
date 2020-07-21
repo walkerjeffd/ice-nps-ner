@@ -58,16 +58,35 @@ cat("done\n")
 
 # temp-model --------------------------------------------------------------
 
+COLD_REFUGIA_THRESHOLD <- 1 # max no. of days < 22 degC
+
 cat("fetching temp-model predictions...")
-df_temp <- tbl(con, "temp_model") %>%
+df_temp_db <- tbl(con, "temp_model") %>%
   select(featureid, version, variable, value) %>%
   filter(
     version == !!config$`temp-model`$version,
-    variable %in% c("mean_summer_temp", "mean_summer_temp_air2", "mean_summer_temp_air4", "mean_summer_temp_air6", "n_day_temp_gt_18", "n_day_temp_gt_22")
+    variable %in% c("mean_summer_temp", "mean_summer_temp_air2", "mean_summer_temp_air4", "mean_summer_temp_air6", "n_day_temp_gt_22", "n_day_temp_gt_22_air2", "n_day_temp_gt_22_air4", "n_day_temp_gt_22_air6")
   ) %>%
   collect() %>%
   select(-version) %>%
   spread(variable, value)
+
+df_temp_db %>%
+  select(starts_with("n_day_temp")) %>%
+  pivot_longer(cols = everything()) %>%
+  ggplot(aes(value)) +
+  geom_histogram() +
+  xlim(0, 20) +
+  facet_wrap(vars(name))
+
+df_temp <- df_temp_db %>%
+  mutate(
+    cold = n_day_temp_gt_22 < COLD_REFUGIA_THRESHOLD,
+    cold_air2 = n_day_temp_gt_22_air2 < COLD_REFUGIA_THRESHOLD,
+    cold_air4 = n_day_temp_gt_22_air4 < COLD_REFUGIA_THRESHOLD,
+    cold_air6 = n_day_temp_gt_22_air6 < COLD_REFUGIA_THRESHOLD
+  )
+
 cat("done\n")
 
 # bto-model ---------------------------------------------------------------
@@ -118,6 +137,9 @@ df <- df_huc %>%
   rename(id = featureid) %>%
   mutate_at(vars(-c(id, huc6, huc8, huc10, huc12, state)), signif, digits = 4)
 cat("done\n")
+
+# fraction of cold water refugia catchments
+df %>% summarise(across(starts_with("cold"), mean, na.rm = TRUE))
 
 # export ------------------------------------------------------------------
 

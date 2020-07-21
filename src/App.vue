@@ -3,6 +3,7 @@
     <ice-header title="Coldwater Refugia in the Northeast" />
     <div class="ice-container">
       <div class="ice-left-sidebar">
+        <!-- BUTTONS -->
         <div class="ice-box" style="text-align:right">
           <div class="btn-group btn-group-justified btn-group-xs">
             <a class="btn btn-default" @click="modals.about = true">
@@ -22,6 +23,7 @@
             </a>
           </div>
         </div>
+        <!-- RESOLUTION -->
         <div class="ice-box">
           <div class="row">
             <div class="col-xs-3">
@@ -41,6 +43,7 @@
             </div>
           </div>
         </div>
+        <!-- STATES -->
         <div class="ice-box">
           <div class="row">
             <div class="col-xs-3">
@@ -61,6 +64,33 @@
             </div>
           </div>
         </div>
+        <!-- PARK UNIT -->
+        <div class="ice-box">
+          <div class="row">
+            <div class="col-xs-3">
+              <div class="ice-box-label">Park Unit</div>
+            </div>
+            <div class="col-xs-8" style="width:285px">
+              <ice-select
+                id="npsunit"
+                :options="npsunitOptions"
+                :value="selectedNpsunitId"
+                :multiple="false"
+                grouped
+                @input="selectNpsunitById"
+                value-field="id"
+                text-field="label"
+                title="Select a park unit..."
+              />
+            </div>
+            <div class="col-xs-1" style="padding-left:0;padding-right:0">
+              <a class="btn btn-default" @click="selectNpsunitById()">
+                <i class="fa fa-times"/>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- VARIABLE -->
         <div class="ice-box">
           <div class="row">
             <div class="col-xs-3">
@@ -97,6 +127,7 @@
             </div>
           </div>
         </div>
+        <!-- LEGEND SETTINGS -->
         <div class="ice-box" v-if="show.legendSettings">
           <div class="row">
             <div class="col-xs-3">
@@ -174,18 +205,25 @@
           </div>
         </div>
       </div>
-      <selected-huc-box
-        :selected="selected.feature"
-        @zoomTo="zoomToFeature"
-        @unselect="selectFeature"
-        @showCatchments="showCatchments"
-        v-if="selected.feature" />
-      <selected-catchment-box
-        :selected="catchments.selected"
-        @zoomTo="zoomToFeature"
-        @unselect="selectCatchment"
-        v-if="catchments.selected" />
-      <ice-map :options="map.options" :overlays="map.overlays">
+      <div style="position:absolute;right:490px;top:60px;z-index:5000">
+        <selected-npsunit-box
+          :selected="selected.npsunit"
+          @zoomTo="zoomToFeature"
+          @unselect="selectNpsunit"
+          v-if="selected.npsunit" />
+        <selected-huc-box
+          :selected="selected.feature"
+          @zoomTo="zoomToFeature"
+          @unselect="selectFeature"
+          @showCatchments="showCatchments"
+          v-if="selected.feature" />
+        <selected-catchment-box
+          :selected="catchments.selected"
+          @zoomTo="zoomToFeature"
+          @unselect="selectCatchment"
+          v-if="catchments.selected" />
+      </div>
+      <ice-map :options="map.options" :overlays="map.overlays" :selected="selected.npsunit" :features="npsunits" @select="selectNpsunit">
         <ice-map-layer
           id="huc"
           :layer="layer"
@@ -277,6 +315,7 @@ import IceMap from '@/components/IceMap.vue'
 import IceMapLayer from '@/components/IceMapLayer.vue'
 import IceModal from '@/components/IceModal.vue'
 
+import SelectedNpsunitBox from '@/components/SelectedNpsunitBox.vue'
 import SelectedHucBox from '@/components/SelectedHucBox.vue'
 import SelectedCatchmentBox from '@/components/SelectedCatchmentBox.vue'
 import AboutModal from '@/components/AboutModal.vue'
@@ -314,6 +353,7 @@ export default {
     IceModal,
     IceSelect,
 
+    SelectedNpsunitBox,
     SelectedHucBox,
     SelectedCatchmentBox,
     AboutModal,
@@ -341,25 +381,25 @@ export default {
         },
         overlays: [
           {
-            url: 'http://ecosheds.org:8080/geoserver/wms',
+            url: 'https://ecosheds.org/geoserver/wms',
             label: 'Major Streams',
             layer: 'sheds:flowlines_strahler_3',
             visible: true
           }, {
-            url: 'http://ecosheds.org:8080/geoserver/wms',
+            url: 'https://ecosheds.org/geoserver/wms',
             label: 'Minor Streams',
             layer: 'sheds:detailed_flowlines',
             minZoom: 10
           }, {
-            url: 'http://ecosheds.org:8080/geoserver/wms',
+            url: 'https://ecosheds.org/geoserver/wms',
             label: 'NHD Waterbodies',
             layer: 'sheds:waterbodies'
           }, {
-            url: 'http://ecosheds.org:8080/geoserver/wms',
+            url: 'https://ecosheds.org/geoserver/wms',
             label: 'HUC8 Boundaries',
             layer: 'sheds:wbdhu8'
           }, {
-            url: 'http://ecosheds.org:8080/geoserver/wms',
+            url: 'https://ecosheds.org/geoserver/wms',
             label: 'HUC12 Boundaries',
             layer: 'sheds:wbdhu12',
             minZoom: 10
@@ -414,6 +454,7 @@ export default {
       selected: {
         theme: null,
         variable: null,
+        npsunit: null,
         feature: null,
         filters: []
       },
@@ -430,11 +471,18 @@ export default {
       catchments: {
         layer: null,
         selected: null
-      }
+      },
+      npsunits: null
     }
   },
   computed: {
     ...mapGetters(['themes', 'theme', 'layer', 'variables', 'variable', 'stats']),
+    npsunitOptions () {
+      return this.npsunits ? this.npsunits.features.map(d => ({ id: d.id, label: d.properties.label })) : []
+    },
+    selectedNpsunitId () {
+      return this.selected.npsunit ? this.selected.npsunit.id : null
+    },
     variableOptions () {
       const variables = this.variables.filter(v => v.map)
       return [filterPercentVariable, ...variables]
@@ -480,9 +528,13 @@ export default {
     console.log('app:created')
     this.catchments.map = new Map()
 
-    axios.get('ice-nps-ner.json')
-      .then(response => response.data)
-      .then(config => this.$store.dispatch('loadConfig', config))
+    axios.get('npsunits/npsunits.geojson')
+      .then(({ data }) => {
+        console.log('npsunits', data)
+        this.npsunits = Object.freeze(data)
+        return axios.get('ice-nps-ner.json')
+      })
+      .then(({ data }) => this.$store.dispatch('loadConfig', data))
       .then(config => {
         const theme = config.themes.find(d => d.default)
         return this.selectTheme(theme.id)
@@ -565,6 +617,20 @@ export default {
           this.loading = false
           return Promise.resolve()
         })
+    },
+    selectNpsunitById (id) {
+      console.log('app:selectNpsunitById', id)
+      // this.selected.npsunitId = id
+      if (!id) {
+        return this.selectNpsunit()
+      }
+      const feature = this.npsunits.features.find(d => d.id === id)
+      this.selectNpsunit(feature)
+    },
+    selectNpsunit (feature) {
+      console.log('app:selectNpsunit', feature)
+      // this.selected.npsunitId = feature ? feature.id : null
+      this.selected.npsunit = feature
     },
     selectVariable (id) {
       console.log('app:selectVariable', id)
@@ -655,7 +721,7 @@ export default {
       evt.$emit('map:render')
       evt.$emit('filter:render')
 
-      this.zoomToFeature(feature)
+      // this.zoomToFeature(feature)
     },
     getCatchmentValue (catchment) {
       return this.catchments.map.has(catchment.id) ? this.catchments.map.get(catchment.id)[this.variable.id] : null

@@ -52,6 +52,6 @@ export default {
 }
 
 .modal-dialog {
-  margin-top: 60px;
+  margin-top: 60px !important;
 }
 </style>
