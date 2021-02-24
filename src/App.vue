@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="full">
-    <ice-header title="ICE | Coldwater Refugia in the Northeast" />
+    <ice-header title="Coldwater Refugia in the Northeast" />
     <div class="ice-container">
       <div class="ice-left-sidebar">
         <!-- BUTTONS -->
@@ -44,7 +44,7 @@
           </div>
         </div>
         <!-- STATES -->
-        <div class="ice-box">
+        <div class="ice-box" v-if="false">
           <div class="row">
             <div class="col-xs-3">
               <div class="ice-box-label">States</div>
@@ -165,7 +165,7 @@
           </div>
         </div>
       </div>
-      <div class="ice-right-sidebar">
+      <div class="ice-right-sidebar" v-if="false">
         <div class="ice-box">
           <div class="ice-box-title">Histograms and Filters</div>
           <ice-select
@@ -205,7 +205,7 @@
           </div>
         </div>
       </div>
-      <div style="position:absolute;right:490px;top:60px;z-index:5000">
+      <div style="position:absolute;right:10px;top:60px;z-index:5000">
         <selected-npsunit-box
           :selected="selected.npsunit"
           @zoomTo="zoomToFeature"
@@ -255,7 +255,7 @@
       :show="modals.about"
       @close="modals.about = false"
       size="lg">
-      <span slot="title">About ICE</span>
+      <span slot="title">About</span>
       <div slot="body">
         <about-modal></about-modal>
       </div>

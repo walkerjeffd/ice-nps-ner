@@ -165,4 +165,7 @@ for (huc2_id in huc2_ids) {
     write_csv(fname, na = "")
 }
 
+df %>%
+  saveRDS("rds/dataset.rds")
+
 cat("generate-datasets: finished\n")

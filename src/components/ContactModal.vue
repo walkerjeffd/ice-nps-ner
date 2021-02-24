@@ -1,8 +1,7 @@
 <template>
   <div>
     <p>
-      If you have questions about this application, discovered any bugs, or are interested in
-      using ICE with your own dataset, please feel free to contact us using this form.
+      If you have questions about this application or discovered any bugs, please let us know.
     </p>
     <hr>
     <form class="form-horizontal contact" action="https://formspree.io/jeff@walkerenvres.com" method="POST">
@@ -35,7 +34,7 @@
         </div>
       </div>
       <input type="text" name="_gotcha" style="display:none">
-      <input type="hidden" name="_subject" value="ICE-SHEDS Contact Submission">
+      <input type="hidden" name="_subject" value="ICE-NPS-NER Contact Submission">
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-6">
           <input type="submit" class="btn btn-primary" value="Send">

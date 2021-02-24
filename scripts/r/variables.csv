@@ -2,8 +2,8 @@ default,id,label,map,filter,formats_axis,formats_value,scale_domain_min,scale_do
 FALSE,area_km2,Local Drainage Area (km2),FALSE,FALSE,",.0f",",.1f",,,,
 FALSE,upstream_area_km2,Upstream Drainage Area (km2),FALSE,TRUE,",.0f",",.1f",0,200,log,Catchment Characteristics
 TRUE,elevation,Elevation (m),TRUE,TRUE,",.0f",",.0f",0,1000,linear,Catchment Characteristics
-FALSE,agriculture,Agriculture Cover (%),TRUE,TRUE,0.00%,0.00%,0,1,linear,Catchment Characteristics
-FALSE,forest,Forest Cover (%),TRUE,TRUE,0.00%,0.00%,0,1,linear,Catchment Characteristics
+FALSE,agriculture,Agriculture Cover (%),TRUE,TRUE,0%,0.0%,0,1,linear,Catchment Characteristics
+FALSE,forest,Forest Cover (%),TRUE,TRUE,0%,0.0%,0,1,linear,Catchment Characteristics
 FALSE,summer_prcp_mm,Summer Precip. (mm/mon),TRUE,TRUE,",.0f",",.1f",70,220,linear,Catchment Characteristics
 FALSE,mean_summer_temp,Mean Summer Temp. (degC) - Current,TRUE,TRUE,",.0f",",.1f",10,30,linear,Stream Temperature Model
 FALSE,mean_summer_temp_air2,Mean Summer Temp. (degC) - Air Temp +2 C,TRUE,TRUE,",.0f",",.1f",10,30,linear,Stream Temperature Model
@@ -13,10 +13,10 @@ FALSE,n_day_temp_gt_22,# Days/Year Temp. > 22 degC - Current,TRUE,TRUE,",.0f",",
 FALSE,n_day_temp_gt_22_air2,# Days/Year Temp. > 22 degC - Air Temp +2 C,TRUE,TRUE,",.0f",",.0f",1,50,log,Stream Temperature Model
 FALSE,n_day_temp_gt_22_air4,# Days/Year Temp. > 22 degC - Air Temp +4 C,TRUE,TRUE,",.0f",",.0f",1,50,log,Stream Temperature Model
 FALSE,n_day_temp_gt_22_air6,# Days/Year Temp. > 22 degC - Air Temp +6 C,TRUE,TRUE,",.0f",",.0f",1,50,log,Stream Temperature Model
-FALSE,cold,Cold Water Refugia - Current,TRUE,TRUE,"0%","0%",0,1,linear,Stream Temperature Model
-FALSE,cold_air2,Cold Water Refugia - Air Temp +2 C,TRUE,TRUE,"0%","0%",0,1,linear,Stream Temperature Model
-FALSE,cold_air4,Cold Water Refugia - Air Temp +4 C,TRUE,TRUE,"0%","0%",0,1,linear,Stream Temperature Model
-FALSE,cold_air6,Cold Water Refugia - Air Temp +6 C,TRUE,TRUE,"0%","0%",0,1,linear,Stream Temperature Model
+FALSE,cold,Cold Water Refugia - Current,TRUE,TRUE,"0%","0.0%",0,1,linear,Stream Temperature Model
+FALSE,cold_air2,Cold Water Refugia - Air Temp +2 C,TRUE,TRUE,"0%","0.0%",0,1,linear,Stream Temperature Model
+FALSE,cold_air4,Cold Water Refugia - Air Temp +4 C,TRUE,TRUE,"0%","0.0%",0,1,linear,Stream Temperature Model
+FALSE,cold_air6,Cold Water Refugia - Air Temp +6 C,TRUE,TRUE,"0%","0.0%",0,1,linear,Stream Temperature Model
 FALSE,occ_current,Occupancy Prob. - Current,TRUE,TRUE,0.00%,0.00%,0,1,linear,Brook Trout Occupancy Model
 FALSE,occ_air_2,Occupancy Prob. - Air Temp +2 C,TRUE,TRUE,0.00%,0.00%,0,1,linear,Brook Trout Occupancy Model
 FALSE,occ_air_4,Occupancy Prob. - Air Temp +4 C,TRUE,TRUE,0.00%,0.00%,0,1,linear,Brook Trout Occupancy Model

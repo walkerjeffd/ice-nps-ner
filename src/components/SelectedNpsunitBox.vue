@@ -23,8 +23,12 @@
     <ice-modal :show="showData" @close="showData = false">
       <span slot="title"><strong>Park Unit: {{ selected.properties.label }} ({{ selected.id }})</strong></span>
       <div slot="body">
-        <!-- <p>This table lists the area-weighted mean value of all catchments within the selected HUC. These values are <em>not</em> affected by current filters.</p> -->
-        <p>This table will list the values for the selected park. Variables TBD...</p>
+        <p>This table lists the area-weighted mean value of all catchments that intersect this park unit.</p>
+        <p>
+          <strong>Total # Catchments</strong>: {{ selected.properties.n.toLocaleString() }}<br>
+          <strong># Catchments Excluded From Models</strong>: {{ selected.properties.n_nodata.toLocaleString() }} ({{ selected.properties.n > 0 ? percentFormat(selected.properties.n_nodata / selected.properties.n) : 'N/A' }})
+
+        </p>
         <table class="table table-condensed table-striped" v-if="dataRows.length > 0">
           <thead>
             <th>Variable</th>
@@ -44,7 +48,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-// import * as d3 from 'd3'
+import * as d3 from 'd3'
 
 // import { xf } from '@/libs/IceCrossfilter'
 import IceModal from '@/components/IceModal'
@@ -65,37 +69,25 @@ export default {
     showData () {
       let rows = []
       if (this.showData) {
-        // const data = xf.subset.all()
-        // rows = this.variables
-        //   .filter(d => d.map || d.filter)
-        //   .map(d => {
-        //     const values = data.map(v => ({
-        //       weight: v[this.theme.group.weight],
-        //       value: v[d.id],
-        //       weightedValue: v[this.theme.group.weight] * v[d.id]
-        //     })).filter(v => v.value !== null)
-
-        //     const value = d3.sum(values.map(v => v.weightedValue)) / d3.sum(values.map(v => v.weight))
-        //     const formatter = d3.format(d.formats.value)
-        //     return {
-        //       id: d.id,
-        //       label: d.label,
-        //       n: values.length,
-        //       format: d.formats.value,
-        //       value,
-        //       formattedValue: formatter(value)
-        //     }
-        //   })
-        rows = [1, 2, 3, 4].map(i => ({
-          id: i,
-          label: `Variable ${i}`,
-          value: i,
-          formattedValue: i.toFixed(1)
-        }))
+        rows = this.variables
+          .filter(d => d.map || d.filter)
+          .map(d => {
+            const value = this.selected.properties[d.id]
+            const formatter = d3.format(d.formats.value)
+            return {
+              id: d.id,
+              label: d.label,
+              format: d.formats.value,
+              value,
+              formattedValue: formatter(value)
+            }
+          })
       }
 
       this.dataRows = rows
     }
+  },
+  filters: {
   },
   methods: {
     unselect () {
@@ -107,6 +99,9 @@ export default {
     showCatchments () {
       // console.log('info:showCatchments')
       this.$emit('showCatchments', this.selected)
+    },
+    percentFormat (value) {
+      return d3.format('.1%')(value)
     }
   }
 }

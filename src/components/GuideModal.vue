@@ -4,25 +4,9 @@
 
     <div class="row">
       <div class="col-md-12">
-        <img
-          src="../assets/img/guide/filter-area.gif"
-          alt="Cross-filtering with percent area aggregation"
-          class="img-rounded img-center pull-right">
         <p>
-          The <strong>Interactive Catchment Explorer (ICE)</strong> is a data visualization tool for exploring environmental datasets and model outputs.
+          <strong>Coldwater Refugia in the Northeast</strong> was built using the <a href="http://ice.ecosheds.org/">Interactive Catchment Explorer (ICE)</a>, which is a data visualization framework for exploring large and complex environmental datasets and model outputs.
         </p>
-        <p>ICE is designed to:</p>
-        <ol>
-          <li>
-            Identify spatial patterns of hydro-ecological conditions over a wide range of scales,
-          </li>
-          <li>
-            View and compare the distributions (histograms) of selected variables and regions,
-          </li>
-          <li>
-            Use interactive cross-filtering to identify areas that meet one or more specific criteria and to discover correlations and relationships between variables.
-          </li>
-        </ol>
       </div>
     </div>
 
@@ -40,8 +24,7 @@
           Due to the large number of HUC12 basins across the North Atlantic, this resolution is divided into 2-digit HUC sub-regions, only one of which can be viewed at a time (see <a href="https://commons.wikimedia.org/wiki/File:Huc_region-edit.png" target="_blank">HUC2 map</a>).
         </p>
         <p>
-          The <code>States</code> option allows you to focus on one or more states by filtering the dataset for only catchments within those states.
-          For example, selecting only "Massachusetts" will filter the dataset to only include catchments located within Massachusetts.
+          The <code>Park Unit</code> option allows you to select a National Park Unit to focus on. When a park unit is selected, the map will automatically zoom to that location.
         </p>
         <p>
           The <code>Variable</code> option determines which variable is spatially aggregated and used to color-code each HUC.
@@ -154,226 +137,10 @@
           By changing this resolution, users can compare patterns at varying spatial scales ranging from the local sub-basins (HUC12s) within a sub-region to the major drainage basins (HUC6s) across the entire North Atlantic region.
         </p>
         <p>
-          There are two ways the catchments can be spatially aggregated to the HUC basins depending on which option is selected from the <code>Variable</code> dropdown menu:
-        </p>
-        <ul>
-          <li>
-            <strong>% Area Filtered</strong>:
-            If this option is selected, then the value for each HUC is the percent of the total area comprised of catchments that meet the filter criteria (see Histogram and Cross-filters below).
-            For example, if a filter is set for elevation &lt; 200 m, then the value of each HUC is the percent of the total area covered by catchments with elevations less than 200 m.
-            When no filter is set, then all HUCs will have a value of 100%.
-          </li>
-          <li>
-            <strong>Area-weighted Mean</strong>:
-            If any of the other variables are selected, then the value for each HUC is the calculated using the mean of the filtered catchments within that HUC and weighted by catchment area.
-            The area-weighted mean thus corrects for differences in the areas of the individual catchments within each HUC.
-            For example, if the selected variable is Elevation (m), then the color of each HUC reflects the area-weighted mean elevation of the catchments within it.
-            If one or more filters are set, then this value is computed only from the catchments that meet the filter criteria.
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <hr>
-
-    <h3>Histograms and Cross-filters</h3>
-    <p>
-      Histograms can be added on the right-hand side of the application to view the distribution of catchment values for one or more variables.
-      These histograms also act as interactive filters (a process called cross-filtering), which allows you to focus on subsets of the data defined by one or more criteria.
-      The cross-filters are responsive to user inputs, allowing the user to explore spatial patterns of individual variables interactively, as well as the relationships
-      between variables as will be explained below.
-    </p>
-
-    <h4>Histogram of All Catchments</h4>
-    <div class="row">
-      <div class="col-md-12">
-        <img
-          src="../assets/img/guide/histogram.png"
-          alt="Select variable to view histogram"
-          class="img-rounded pull-right">
-        <p>
-          Select one or more variables from the drop down menu to open the corresponding histogram(s).
-          Each histogram shows the distribution of values for all catchments in the region (assuming no filters have been set as explained below).
-          The vertical blue line shows the mean value of the distribution.
-        </p>
-        <p>
-          <i class="fa fa-exclamation-triangle" style="color:orange"></i> <i>The histograms show the distribution of the <strong>catchments</strong>, not of the aggregated HUC values.</i>
-        </p>
-      </div>
-    </div>
-
-    <h4>Histogram of Selected HUC</h4>
-    <div class="row">
-      <div class="col-md-12">
-        <img
-          src="../assets/img/guide/histogram-selected.png"
-          alt="Secondary histogram of selected HUC"
-          class="img-rounded pull-right">
-        <p>
-          When a HUC is selected, a secondary histogram (colored orange) shows the distribution for catchments within that HUC.
-          This histogram can be compared to the primary (blue) histogram to compare the catchments within this HUC relative to all catchments across the entire region.
-        </p>
-        <p>
-          <i class="fa fa-exclamation-triangle" style="color:orange"></i> <i>The primary (blue) and secondary (orange) histograms do not share the same y-scale. They are normalized in the y-dimension so that they have the same height, but may have different maximum counts (y values).</i>
-        </p>
-      </div>
-    </div>
-
-    <h4>Filtering</h4>
-    <div class="row">
-      <div class="col-md-12">
-        <img
-          src="../assets/img/guide/filter.png"
-          alt="Setting a filter"
-          class="img-rounded pull-right">
-        <p>
-          Click and drag over a histogram to set a filter for that variable.
-          This action will filter the data to a subset containing only catchments within that filter window.
-          When a filter is set or changed, the spatially aggregated value of each HUC will be re-computed using only the filtered catchments.
-        </p>
-        <p>
-          For example, if a filter is set on Elevation (m) for all values greater than 200 m, then only catchments with elevations &gt; 200 m will be used for the spatial aggregation.
-          If the selected <code>Variable</code> is <code>% Area Filtered</code>, then the value of each HUC will reflect the % of the total HUC area containing the filtered catchments (e.g. 50% if half of the HUC area has catchments with elevations &gt; 200 m).
-          If any other variable is selected, then the value of each HUC will correspond to the area-weighted mean computed only from the filtered catchments with elevations &gt; 200 m.
-        </p>
-        <p>
-          To reset (or clear) a filter, click the <code>Reset</code> link or simply click anywhere outside the current filter range on the histogram itself.
-        </p>
-      </div>
-    </div>
-
-    <h4>Setting Multiple Filters</h4>
-    <div class="row">
-      <div class="col-md-12">
-        <img
-          src="../assets/img/guide/filter-multiple.png"
-          alt="Multiple Histograms"
-          class="img-rounded pull-right">
-        <p>
-          Multiple filters can be set simultaneously by selecting more than one variable from the dropdown menu.
-          Both filters will be applied to the dataset resulting in a subset of filtered catchments that meet all of the filter criteria.
-        </p>
-        <p>
-          For example, the screenshot on the right shows two filters being set: the first for elevation &gt; 200 m, and a second for mean summer temperature &lt; 18 degC.
-          As a result, only catchments meeting both criteria are used to calculate the spatially aggregated value for each HUC.
-        </p>
-      </div>
-    </div>
-
-    <hr>
-
-    <h3>Combined Filtering and Spatial Aggregation</h3>
-
-    <div class="row">
-      <div class="col-md-12">
-        <p>
-          The following diagram shows how each type of spatial aggregation is affect by setting a filter.
-        </p>
-        <p>
-          The two rows show results when no filter is applied (top) and when a filter is set for elevation &gt; 200 m (bottom).
-        </p>
-        <p>
-          The left column shows the individual catchments within the selected HUC with no filter (top) and with the filter (bottom).
-          Catchments that do not fall within the filter range are not colored in the bottom panel.
-        </p>
-        <p>
-          The middle column shows the aggregated value for the selected HUC when the <code>Variable</code> is set to <code>% Area Filtered</code>.
-          With no filter (top), the value for the HUC (as well as all other HUCs) is 100%.
-          When the filter is set (bottom), the value is 48% meaning just less than half of the area within the HUC is covered by catchments with elevations &gt; 200 m.
-        </p>
-        <p>
-          The right column shows the aggregated value when the <code>Variable</code> is set to <code>Elevation (m)</code>.
-          With no filter (top), the area-weighted mean elevation of the HUC is 280 m based on all of the catchments within it.
-          When the filter is set (bottom), the value is 438 m, which is the area-weighted mean of only the catchments with elevations &gt; 200 m.
-        </p>
-        <img
-          src="../assets/img/guide/matrix.png"
-          alt="Histograms with filtering and aggregation"
-          class="img-rounded">
-      </div>
-    </div>
-
-    <hr>
-
-    <h3>Interactive Cross-filtering</h3>
-    <div class="row">
-      <div class="col-md-12">
-        <img
-          src="../assets/img/guide/filter-catchments-animation.gif"
-          alt="Animated catchment filtering"
-          class="img-rounded pull-right">
-        <p>
-          When multiple histograms are open, setting a filter on one variable will affect the distributions of the other variables by filtering the dataset to only include catchments that meet that filter criteria.
-        </p>
-        <p>
-          The example to the right shows what happens when a filter on elevation is dragged from low to high values, and then back again.
-          This filter affects the distributions of both all catchments (blue) and the catchments within the selected HUC (orange) in the second histogram.
-        </p>
-        <p>
-          Initially, the elevation filter is set to a range of 0-200 m.
-          The map shows the filtered catchments within the selected HUC8 that have elevations in this range, which are located near the coastline as expected.
-          The second histogram shows the distributions of Mean Summer Temperature based on the filtered catchments for the entire region (blue) and within the selected HUC8 (orange).
-        </p>
-        <p>
-          As the filter range is dragged to the right, the dataset dynamically changes by adding catchments with higher elevations, and dropping those with lower elevations.
-          As expected, the filtered catchments shown on the map move away from the coastline and towards higher elevations found inland.
-          The second histogram shows the distributions of Mean Summer Temperature shifting from right to left (higher to lower values).
-          This behavior indicates that catchments with higher elevations tend to have lower mean summer stream temperatures, and vice versa. In other words, there is an inverse relationship between elevation and stream temperature.
-        </p>
-      </div>
-    </div>
-
-    <hr>
-
-    <h3>Interactive Cross-filtering at the Regional Scale</h3>
-    <p>
-      When using the interactive cross-filters at the regional scale (i.e. when viewing the spatially aggregated values of the HUC basins), we recommend starting with the
-      <code>% Area Filtered</code> variable for the spatial aggregation, which is easier to interpret than the area-weighted mean of one of the other variables.
-    </p>
-
-    <h4>% Area Filtered</h4>
-    <div class="row">
-      <div class="col-md-12">
-        <img
-          src="../assets/img/guide/filter-area.gif"
-          alt="Cross-filtering with percent area aggregation"
-          class="img-rounded pull-right">
-        <p>
-          The example to the right shows how the % filtered area of the HUC8 basins varies as the mean summer stream temperature increases from low to high values and back. The second
-          histogram shows the current brook trout occupancy probability.
-        </p>
-        <p>
-          Initially, when the filter is set to a low temperature range (14-16 degC), the % area filtered is highest among the northern-most HUCs. This means that a large fraction of the catchments
-          within those northern HUCs have low temperatures (and also high occupancy probabilities based on the distribution in the second histogram).
-        </p>
-        <p>
-          As the filter is dragged to the right, the changing HUC values indicate that the areas containing the filtered catchments with higher and higher temperatures shifts south and then towards the coast.
-        </p>
-        <p>
-          When the filter is at the highest temperature range (20-24 degC), then the HUCs in the mid-Atlantic coastline have the highest % area of filtered catchments.
-        </p>
-      </div>
-    </div>
-
-    <h4>Area-Weighted Mean (example: Brook Trout Occupancy)</h4>
-    <div class="row">
-      <div class="col-md-12">
-        <img
-          src="../assets/img/guide/filter-bto.gif"
-          alt="Cross-filtering with mean brook trout occupancy"
-          class="img-rounded pull-right">
-        <p>
-          Interpreting changes in area-weighted mean values in response to a changing filter requires a strong understanding of how ICE works.
-          For this example, Current Occupancy Prob. is the selected variable and the filter for Mean Summer Temp. (degC) is again dragged from low to high values, and back again.
-        </p>
-        <p>
-          The changing HUC values reflect how the average occupancy probability in each HUC varies as the catchments are filtered for those with higher and higher summer temperatures (and then back).
-          As expected, when the temperature filter is set to lower values, then the average occupancy probabilities are generally high among all the HUCs. As the filter is dragged to the right, the occupancy probabilities decrease due to the inverse reletionship between temperature and occupancy.
-        </p>
-        <p>
-          This example demonstrates how to use ICE to explore how the relationship between two variables varies spatially. While the overall relationship between the two variables can seen in the
-          changing histograms, changes in the spatially aggregated values among the HUCs reflect how this relationship spatially varies between all of the HUCs in the region. This approach can be useful to
-          identify outliers, that is HUCs which show unique patterns relative to the other HUCs in the region.
+          Catchments are spatially aggregated using the <strong>area-weighted mean</strong>.
+          The value for each HUC is the calculated using the mean of the  catchments within that HUC and weighted by catchment area.
+          The area-weighted mean thus corrects for differences in the areas of the individual catchments within each HUC.
+          For example, if the selected variable is Elevation (m), then the color of each HUC reflects the area-weighted mean elevation of the catchments within it.
         </p>
       </div>
     </div>
@@ -410,11 +177,11 @@
         The GeoJSON format of this file will let you re-create the current map shown in ICE using desktop GIS software.
       </li>
       <li>
-        <strong>Catchments Layer (Selected HUC Only)</strong>: when a HUC is selected, these files contain the data for either all of the catchments or only the filtered catchments within that HUC.
+        <strong>Catchments Layer (Selected HUC Only)</strong>: when a HUC is selected, these files contain the data for the catchments within that HUC.
         In order to download the geospatial file (GeoJSON format), you must load the catchments for the HUC into ICE by clicking the Catchments button on the Selected HUC toolbar.
       </li>
       <li>
-        <strong>Catchments Layer (Entire Region)</strong>: the entire dataset for the region is provided as a CSV file for either all catchments or only the filtered catchments.
+        <strong>Catchments Layer (Entire Region)</strong>: the entire dataset for the region is provided as a CSV file.
         Due to the large number of catchments, the geospatial files are provided as a series of shapefiles pre-staged by 2-digit HUC regions. The CSV files can be joined to the shapefiles using the
         <code>id</code> column of the CSV file and the <code>featureid</code> column of the shapefile.
       </li>

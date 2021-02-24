@@ -3,8 +3,7 @@
 library(tidyverse)
 library(sf)
 
-catch <- readRDS("rds/catchment-centroids.rds")
-npsunit <- readRDS("rds/npsunits.rds")
+npsunits <- readRDS("rds/npsunits.rds")
 
 # 77 nps units total
 npsunits$UNIT_CODE %>% unique %>% length
@@ -12,34 +11,22 @@ npsunits$UNIT_CODE %>% unique %>% length
 # use subset for development
 # npsunit <- head(npsunit)
 
-df <- npsunits %>%
-  select(npsunit = UNIT_CODE) %>%
-  st_join(catch, join = st_contains) %>%
-  as_tibble() %>%
-  select(-geometry) %>%
-  filter(!is.na(featureid))
 
-catch %>%
-  inner_join(df, by = "featureid") %>%
-  filter(npsunit %in% unique(npsunits$UNIT_CODE)[1:5]) %>% # first five units only
-  ggplot() +
-  geom_sf(aes(color = npsunit))
+config <- config::get()
 
-# no. catchments per npsunit
-df %>%
-  group_by(npsunit) %>%
-  tally() %>%
-  print(n = Inf) %>%
-  summary()
+con <- DBI::dbConnect(
+  RPostgreSQL::PostgreSQL(),
+  dbname = "sheds",
+  host = "trout.local",
+  port = 5432,
+  user = "jeff"
+)
 
-setdiff(sort(unique(npsunits$UNIT_CODE)), df$npsunit) %>% length
+nps_catchments <- DBI::dbGetQuery(con, "select * from data.nps_catchments;")
 
-# no. npsunits per catchment > 1
-df %>%
-  group_by(featureid) %>%
-  tally() %>%
-  filter(n > 1)
+DBI::dbDisconnect(con)
 
+df <- as_tibble(nps_catchments)
 # npsunits with no catchment
 
-saveRDS(df, "rds/npsunit-catchment.rds")
+saveRDS(df, "rds/npsunit-catchments.rds")

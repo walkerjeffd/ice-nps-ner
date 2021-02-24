@@ -2,7 +2,7 @@ const webpack = require('webpack') // eslint-disable-line import/no-extraneous-d
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/dev/ice-nps-ner/'
+    ? '/nps-ner/'
     : '/',
   chainWebpack: config => config.resolve.symlinks(false),
   configureWebpack: {

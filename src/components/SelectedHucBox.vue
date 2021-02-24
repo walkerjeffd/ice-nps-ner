@@ -23,7 +23,7 @@
     <ice-modal :show="showData" @close="showData = false">
       <span slot="title"><strong>{{ theme.label }}: {{ selected.properties.name }} ({{ selected.id }})</strong></span>
       <div slot="body">
-        <p>This table lists the area-weighted mean value of all catchments within the selected HUC. These values are <em>not</em> affected by current filters.</p>
+        <p>This table lists the area-weighted mean value of all catchments within the selected HUC.</p>
         <table class="table table-condensed table-striped" v-if="dataRows.length > 0">
           <thead>
             <th>Variable</th>

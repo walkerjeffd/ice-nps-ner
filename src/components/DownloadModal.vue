@@ -10,7 +10,7 @@
     <ul>
       <li><code>id</code>: HUC ID</li>
       <li><code>name</code>: HUC Name</li>
-      <li v-if="variable"><code>{{ variable.id }}</code>: {{ variable.label }}. For each HUC, the value is calculated as the area-weighted mean of the filtered catchments within it. These values correspond to those currently shown on the map.</li>
+      <li v-if="variable"><code>{{ variable.id }}</code>: {{ variable.label }}. For each HUC, the value is calculated as the area-weighted mean of the catchments within it. These values correspond to those currently shown on the map.</li>
     </ul>
     <br>
     <div class="row">
@@ -37,9 +37,6 @@
 
     <p>
       The dataset for catchments within a selected HUC can be downloaded either as a text file in comma-separate value (CSV) format or as a geospatial layer in GeoJSON format.
-    </p>
-    <p>
-      Each file format can include either all of the catchments or only those that meet the current set of filters (i.e., the filtered catchments).
     </p>
     <p>
       The GeoJSON file is only available when the catchments have been loaded for the selected HUC. See below for links to download shapefiles containing all of the catchments across the region.
@@ -69,10 +66,7 @@
         <h5><strong>CSV File</strong></h5>
         <p>Contains only the dataset (identifier and values of each catchment), and does not include any geospatial data (polygons). Can be viewed using Excel or any other standard data analysis program (e.g., python or R).</p>
         <p>
-          <button type="button" class="btn btn-primary" @click="downloadCatchmentsAllCSV"><i class="fa fa-download"/> Download All Catchments (CSV)</button>
-        </p>
-        <p>
-          <button type="button" class="btn btn-primary" @click="downloadCatchmentsFilteredCSV"><i class="fa fa-download"/> Download Filtered Catchments (CSV)</button>
+          <button type="button" class="btn btn-primary" @click="downloadCatchmentsAllCSV"><i class="fa fa-download"/> Download Catchments (CSV)</button>
         </p>
       </div>
       <div class="col-md-6">
@@ -90,10 +84,7 @@
             Contains both the dataset (attribute table) and geospatial data (polygons). Can be viewed using QGIS or ArcGIS, or converted to a shapefile using the <a href="https://mygeodata.cloud/converter/geojson-to-shp" target="_blank">MyGeodata Converter</a>.
           </p>
           <p>
-            <button type="button" class="btn btn-primary" @click="downloadCatchmentsAllGeoJSON"><i class="fa fa-download"/> Download All Catchments (GeoJSON)</button>
-          </p>
-          <p>
-            <button type="button" class="btn btn-primary" @click="downloadCatchmentsFilteredGeoJSON"><i class="fa fa-download"/> Download Filtered Catchments (GeoJSON)</button>
+            <button type="button" class="btn btn-primary" @click="downloadCatchmentsAllGeoJSON"><i class="fa fa-download"/> Download Catchments (GeoJSON)</button>
           </p>
         </div>
       </div>
@@ -130,12 +121,8 @@
       <div class="col-md-6">
         <h5><strong>CSV Files</strong></h5>
         <p>Contains the attribute values for each catchment. Can be viewed using Excel or any other standard data analysis program (e.g., python or R).</p>
-        <p>The downloaded dataset can include either all of the catchments or only those that meet the current set of filters (i.e., the filtered catchments).</p>
         <p>
-          <button type="button" class="btn btn-primary" @click="downloadFullCatchmentsAllCSV"><i class="fa fa-download"/> Download All Catchments (CSV)</button>
-        </p>
-        <p>
-          <button type="button" class="btn btn-primary" @click="downloadFullCatchmentsFilteredCSV"><i class="fa fa-download"/> Download Filtered Catchments (CSV)</button>
+          <button type="button" class="btn btn-primary" @click="downloadFullCatchmentsAllCSV"><i class="fa fa-download"/> Download Catchments Data (CSV)</button>
         </p>
       </div>
       <div class="col-md-6">

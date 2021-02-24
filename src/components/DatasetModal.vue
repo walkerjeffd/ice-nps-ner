@@ -63,24 +63,12 @@
           <td>Predicted mean summer (Jun-Aug) stream temperature at catchment outlet</td>
         </tr>
         <tr>
-          <td>Mean Summer Temp. (degC) w/ Air Temp +2 degC</td>
-          <td>Predicted mean summer (Jun-Aug) stream temperature at catchment outlet with air temperature increase of +2 degC</td>
-        </tr>
-        <tr>
-          <td>Mean Summer Temp. (degC) w/ Air Temp +4 degC</td>
-          <td>Predicted mean summer (Jun-Aug) stream temperature at catchment outlet with air temperature increase of +4 degC</td>
-        </tr>
-        <tr>
-          <td>Mean Summer Temp. (degC) w/ Air Temp +6 degC</td>
-          <td>Predicted mean summer (Jun-Aug) stream temperature at catchment outlet with air temperature increase of +6 degC</td>
-        </tr>
-        <tr>
-          <td># Days/Year Temp. &gt; 18 degC</td>
-          <td>Frequency (days per year) with predicted mean daily stream temp &gt; 18 degC at catchment outlet</td>
-        </tr>
-        <tr>
           <td># Days/Year Temp. &gt; 22 degC</td>
           <td>Frequency (days per year) with predicted mean daily stream temp &gt; 22 degC at catchment outlet</td>
+        </tr>
+        <tr>
+          <td>Coldwater Refugia</td>
+          <td>Value is 1 if (# Days/Year Temp. &gt; 22 degC) &lt; 1, otherwise 0</td>
         </tr>
       </tbody>
     </table>
@@ -99,19 +87,7 @@
       <tbody>
         <tr>
           <td>Current Occupancy Prob.</td>
-          <td>Predicted probability of Brook Trout occupancy within catchment under current (historical) conditions</td>
-        </tr>
-        <tr>
-          <td>Occupancy Prob. w/ Air Temp +2 degC</td>
-          <td>Predicted probability of Brook Trout occupancy within catchment with 2 degC increase in air temp.</td>
-        </tr>
-        <tr>
-          <td>Occupancy Prob. w/ Air Temp +4 degC</td>
-          <td>Predicted probability of Brook Trout occupancy within catchment with 4 degC increase in air temp.</td>
-        </tr>
-        <tr>
-          <td>Occupancy Prob. w/ Air Temp +6 degC</td>
-          <td>Predicted probability of Brook Trout occupancy within catchment with 6 degC increase in air temp.</td>
+          <td>Predicted probability of Brook Trout occupancy within catchment</td>
         </tr>
         <tr>
           <td>Max Air Temp Increase for 30% Occupancy Prob.</td>

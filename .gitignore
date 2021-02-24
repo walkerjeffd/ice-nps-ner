@@ -27,6 +27,7 @@ data/**/*.json
 .Rhistory
 scripts/r/rds/*.rds
 scripts/r/json/*.json
+scripts/nps-units/nps-catchments.csv
 
 scripts/config.yml
 
