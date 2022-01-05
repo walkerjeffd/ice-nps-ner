@@ -3,7 +3,7 @@
 library(tidyverse)
 library(sf)
 
-nps <- st_read("~/Dropbox/SHEDS/nps-ner/gis/NER_NPS_Units/NER_NPS_Units.shp")
+nps <- st_read("~/Dropbox/Work/sheds/nps-ner/gis/NER_NPS_20220105.shp")
 
 head(nps)
 
