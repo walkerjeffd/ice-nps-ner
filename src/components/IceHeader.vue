@@ -1,10 +1,6 @@
 <template>
   <div class="ice-header">
     <span class="ice-header-brand">{{ title }}</span>
-    <div class="ice-header-links">
-      <a href="http://ice.ecosheds.org">ICE Home</a> |
-      <a href="https://ecosheds.org">SHEDS Home</a>
-    </div>
   </div>
 </template>
 
@@ -20,7 +16,7 @@ export default {
   position: fixed;
   width: 100%;
   height: 60px;
-  top: 0;
+  top: 68px;
   left: 0;
   background: rgba(40, 40, 40, 0.5);
   color: white;

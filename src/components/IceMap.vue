@@ -53,29 +53,23 @@ export default {
       'ESRI World Imagery': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
       }).addTo(this.map),
+      'USGS Imagery': L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryOnly/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '<a href="http://www.doi.gov">U.S. Department of the Interior</a> | <a href="http://www.usgs.gov">U.S. Geological Survey</a> | <a href="http://www.usgs.gov/laws/policies_notices.html">Policies</a>',
+        maxZoom: 16
+      }),
+      'USGS Topo': L.tileLayer('https://basemap.nationalmap.gov/ArcGIS/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '<a href="http://www.doi.gov">U.S. Department of the Interior</a> | <a href="http://www.usgs.gov">U.S. Geological Survey</a> | <a href="http://www.usgs.gov/laws/policies_notices.html">Policies</a>',
+        maxZoom: 16
+      }),
+      'USGS Hydrography': L.tileLayer('https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '<a href="http://www.doi.gov">U.S. Department of the Interior</a> | <a href="http://www.usgs.gov">U.S. Geological Survey</a> | <a href="http://www.usgs.gov/laws/policies_notices.html">Policies</a>',
+        maxZoom: 16
+      }),
       'Open Street Map': L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       }),
       'No Basemap': L.tileLayer('')
     }
-
-    const overlays = {}
-    this.overlays.forEach((d) => {
-      const key = `<img src="${d.url}?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=${d.layer}&LEGEND_OPTIONS=fontAntiAliasing:true;forceLabels:off"> ${d.label}`
-
-      const layer = L.tileLayer.wms(d.url, {
-        layers: d.layer,
-        format: 'image/png',
-        transparent: true,
-        opacity: d.opacity || 0.5,
-        minZoom: d.minZoom || -Infinity,
-        maxZoom: d.maxZoom || Infinity
-      })
-
-      overlays[key] = layer
-
-      if (d.visible) layer.addTo(this.map)
-    })
 
     this.layer = L.geoJson(null, {
       style: (feature) => ({
@@ -91,7 +85,7 @@ export default {
 
     L.control.transparency({ position: 'topleft' }).addTo(this.map)
 
-    L.control.layers(basemaps, overlays, {
+    L.control.layers(basemaps, {}, {
       position: 'topleft',
       collapsed: true
     }).addTo(this.map)
@@ -148,7 +142,6 @@ export default {
 
       this.layer.eachLayer(layer => {
         if (layer.feature.id === this.selected.id) {
-          console.log(`setStyle(${layer.feature.id})`)
           layer.setStyle({
             color: '#FF0000',
             weight: 2,
@@ -163,16 +156,9 @@ export default {
       if (this.features) {
         this.layer.addData(this.features)
           .bindTooltip(function (layer) {
-            console.log('popup', layer.feature.properties)
             return `<strong>${layer.feature.properties.label}</strong><br>Unit Code: ${layer.feature.id}`
           })
-          // .on('dblclick', (ev) => {
-          //   L.DomEvent.stopPropagation(ev)
-          //   this.map.fitBounds(ev.layer.getBounds())
-          // })
           .on('click', (ev) => {
-            // L.DomEvent.stopPropagation(ev)
-            // console.log(ev.layer.feature)
             if (ev.layer.feature === this.selected) {
               return this.$emit('select', null)
             }
@@ -207,7 +193,7 @@ export default {
 <style>
 .ice-map {
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 div.leaflet-top.leaflet-left {

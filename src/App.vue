@@ -1,7 +1,8 @@
 <template>
   <div id="app" class="full">
-    <ice-header title="Coldwater Refugia in the Northeast" />
+    <UsgsHeader></UsgsHeader>
     <div class="ice-container">
+      <ice-header title="Coldwater Refugia in National Park Service Units of the Northeast" />
       <div class="ice-left-sidebar">
         <!-- BUTTONS -->
         <div class="ice-box" style="text-align:right">
@@ -296,6 +297,7 @@
         <contact-modal></contact-modal>
       </div>
     </ice-modal>
+    <UsgsFooter></UsgsFooter>
   </div>
 </template>
 
@@ -306,6 +308,9 @@ import * as d3 from 'd3'
 
 import { xf, getGroupByKey, isFiltered } from '@/libs/IceCrossfilter'
 import evt from '@/events'
+
+import UsgsHeader from '@/components/usgs/UsgsHeader.vue'
+import UsgsFooter from '@/components/usgs/UsgsFooter.vue'
 
 import IceFilter from '@/components/IceFilter.vue'
 import IceHeader from '@/components/IceHeader.vue'
@@ -345,6 +350,9 @@ const filterPercentVariable = {
 export default {
   name: 'app',
   components: {
+    UsgsHeader,
+    UsgsFooter,
+
     IceFilter,
     IceHeader,
     IceLegend,
@@ -768,19 +776,15 @@ export default {
 </script>
 
 <style>
-body {
-  padding: 0px;
-  margin: 0px;
-  font-family: "proxima-nova-alt", Helvetica, Arial, sans-serif;
-}
-
 a {
   cursor: pointer;
 }
 
 .ice-container {
-  width: 100%;
-  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  font-family: "proxima-nova-alt", Helvetica, Arial, sans-serif;
+  height: calc(100vh - 56px - 68px);
   position: relative;
 }
 
