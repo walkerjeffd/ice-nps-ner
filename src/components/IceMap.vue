@@ -17,11 +17,6 @@ export default {
       type: Object,
       required: true
     },
-    overlays: {
-      type: Array,
-      required: false,
-      default: () => []
-    },
     features: {
       type: Object,
       required: false

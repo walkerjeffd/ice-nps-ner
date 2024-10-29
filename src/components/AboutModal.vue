@@ -3,11 +3,10 @@
     <div class="row">
       <div class="col-md-12">
         <p>
-          <strong>Coldwater Refugia in the Northeast</strong> is an interactive data visualization tool for identifying catchments within or around each national park unit that provide coldwater habitat and/or a high probability of brook trout occupancy (i.e., coldwater refugia).
+          <strong>Coldwater Refugia in National Park Service Units of the Northeast</strong> is an interactive data visualization tool for identifying catchments within or around each national park unit that provide coldwater habitat and/or a high probability of brook trout occupancy (i.e., coldwater refugia).
         </p>
         <p>
-          This web application was built using the <a href="http://ice.ecosheds.org">Interactive Catchment Explorer (ICE)</a> framework as part of the <a href="http://ecosheds.org" target="_blank">Spatial
-          Hydro-Ecological Decision System (SHEDS)</a> project by:
+          This web application was built using the Interactive Catchment Explorer (ICE; <a href="https://pubs.usgs.gov/publication/70215759" target="_blank">Walker et al., 2020</a>) framework as part of the <a href="http://usgs.gov/apps/ecosheds" target="_blank">EcoSHEDS</a> project by:
         </p>
         <ul>
           <li>

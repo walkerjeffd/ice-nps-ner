@@ -224,7 +224,7 @@
           @unselect="selectCatchment"
           v-if="catchments.selected" />
       </div>
-      <ice-map :options="map.options" :overlays="map.overlays" :selected="selected.npsunit" :features="npsunits" @select="selectNpsunit">
+      <ice-map :options="map.options" :selected="selected.npsunit" :features="npsunits" @select="selectNpsunit">
         <ice-map-layer
           id="huc"
           :layer="layer"
@@ -386,33 +386,7 @@ export default {
           zoom: 6,
           maxZoom: 18,
           minZoom: 5
-        },
-        overlays: [
-          {
-            url: 'https://ecosheds.org/geoserver/wms',
-            label: 'Major Streams',
-            layer: 'sheds:flowlines_strahler_3',
-            visible: true
-          }, {
-            url: 'https://ecosheds.org/geoserver/wms',
-            label: 'Minor Streams',
-            layer: 'sheds:detailed_flowlines',
-            minZoom: 10
-          }, {
-            url: 'https://ecosheds.org/geoserver/wms',
-            label: 'NHD Waterbodies',
-            layer: 'sheds:waterbodies'
-          }, {
-            url: 'https://ecosheds.org/geoserver/wms',
-            label: 'HUC8 Boundaries',
-            layer: 'sheds:wbdhu8'
-          }, {
-            url: 'https://ecosheds.org/geoserver/wms',
-            label: 'HUC12 Boundaries',
-            layer: 'sheds:wbdhu12',
-            minZoom: 10
-          }
-        ]
+        }
       },
       show: {
         legendSettings: false

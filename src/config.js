@@ -6,7 +6,7 @@ export default {
   },
   production: {
     api: {
-      url: 'https://usgs.gov/apps/ecosheds/ice-nps-ner/data/'
+      url: 'data/'
     }
   }
 }

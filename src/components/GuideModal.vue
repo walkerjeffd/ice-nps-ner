@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-12">
         <p>
-          <strong>Coldwater Refugia in the Northeast</strong> was built using the <a href="http://ice.ecosheds.org/">Interactive Catchment Explorer (ICE)</a>, which is a data visualization framework for exploring large and complex environmental datasets and model outputs.
+          <strong>Coldwater Refugia in National Park Service Units of the Northeast</strong> was built using the Interactive Catchment Explorer (ICE; <a href="https://pubs.usgs.gov/publication/70215759" target="_blank">Walker et al., 2020</a>), which is a data visualization framework for exploring large and complex environmental datasets and model outputs.
         </p>
       </div>
     </div>

@@ -7,9 +7,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "data": "http-server ./ -p 8081 --cors",
-    "deploy": "yarn build && rsync -av dist/* jeff@ecosheds.org:/conte/www/static/ice/nps-ner --delete",
-    "deploy:data": "rsync -av data/* jeff@ecosheds.org:/conte/www/static/data/ice-nps-ner --delete"
+    "data": "http-server ./ -p 8081 --cors"
   },
   "dependencies": {
     "axios": "^0.18.0",
